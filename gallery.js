@@ -1,6 +1,7 @@
 import items from './gallery-items.js';
 
 
+// парсинг галерей в html
 
 const createGalleryMarkup = item => {
 
@@ -29,11 +30,10 @@ const galleryUlRef = document.querySelector('.js-gallery');
 const lightboxRef = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('.lightbox__image');
 const lightboxOverlayRef = document.querySelector('.lightbox__overlay');
-// const imgRef = document.querySelector('.gallery__image');
 
 galleryUlRef.append(...galleryCards);
 
-// -----------------------------
+// end - парсинг галерей в html
 
 galleryUlRef.addEventListener('click', onClick);
 
@@ -51,9 +51,7 @@ function onClick(event) {
   lightboxRef.classList.add('is-open');
 
   lightboxImage.src = tagBtn.dataset.source;  
-
-//   console.log(object);
-   
+  
 }
 
     // закрытие модалки по Х
@@ -79,4 +77,13 @@ lightboxOverlayRef.addEventListener('click', event => {
 
 });
 
+// закрытие модалки по Esc 
+
+window.addEventListener('keydown', event => {
+
+    if(event.key === 'Escape') {
+        lightboxRef.classList.remove('is-open');
+        lightboxImage.src = '';
+    }
+});
 
