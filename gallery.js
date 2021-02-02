@@ -16,6 +16,7 @@ const imgRef = document.createElement('img');
 imgRef.classList.add('gallery__image');
 imgRef.setAttribute('src', `${item.preview}`);
 imgRef.setAttribute('data-source', `${item.original}`);
+imgRef.setAttribute('data-index', `${item.index}`);
 imgRef.setAttribute('alt', `${item.description}`); 
 
 liRef.appendChild(aRef);
@@ -30,6 +31,7 @@ const galleryUlRef = document.querySelector('.js-gallery');
 const lightboxRef = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('.lightbox__image');
 const lightboxOverlayRef = document.querySelector('.lightbox__overlay');
+
 
 galleryUlRef.append(...galleryCards);
 
@@ -51,6 +53,8 @@ function onClick(event) {
   lightboxRef.classList.add('is-open');
 
   lightboxImage.src = tagBtn.dataset.source;  
+  lightboxImage.dataset.index = tagBtn.dataset.index;
+  
   
 }
 
@@ -77,13 +81,55 @@ lightboxOverlayRef.addEventListener('click', event => {
 
 });
 
+
+
 // закрытие модалки по Esc 
 
+  
+
 window.addEventListener('keydown', event => {
+     
+    const activeIndex = Number(lightboxImage.dataset.index);
+    const itemsLength = items.length;
+
+
+    if(event.key === 'ArrowLeft') {
+
+
+        if(activeIndex > 0) {
+        console.log('листаем влево');
+        const previousImgSourse = items[activeIndex - 1].original;
+        lightboxImage.src = previousImgSourse;
+        lightboxImage.dataset.index = activeIndex - 1;
+    }
+     else {
+
+        console.log('это первая картинка в галереи, хватит клацать влево');
+     }  
+               
+    }
+
+    if(event.key === 'ArrowRight') {
+
+
+        if(activeIndex < items.length - 1) {
+        console.log('листаем вправо');
+        console.log(items.length);
+        const nextImgSourse = items[activeIndex + 1].original;
+        lightboxImage.src = nextImgSourse;
+        lightboxImage.dataset.index = activeIndex + 1;
+        }
+
+        else {
+            console.log('это последняя картинка в галереи, хватит клацать вправо');
+         }  
+    }
 
     if(event.key === 'Escape') {
         lightboxRef.classList.remove('is-open');
         lightboxImage.src = '';
     }
 });
+
+
 
