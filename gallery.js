@@ -53,8 +53,7 @@ function onClick(event) {
   lightboxRef.classList.add('is-open');
 
   lightboxImage.src = tagBtn.dataset.source;  
-  lightboxImage.dataset.index = tagBtn.dataset.index;
-  
+  lightboxImage.dataset.index = tagBtn.dataset.index; 
   
 }
 
@@ -81,11 +80,8 @@ lightboxOverlayRef.addEventListener('click', event => {
 
 });
 
+// закрытие модалки по Esc и переключение стрелками
 
-
-// закрытие модалки по Esc 
-
-  
 
 window.addEventListener('keydown', event => {
      
@@ -94,7 +90,6 @@ window.addEventListener('keydown', event => {
 
 
     if(event.key === 'ArrowLeft') {
-
 
         if(activeIndex > 0) {
         console.log('листаем влево');
@@ -111,10 +106,8 @@ window.addEventListener('keydown', event => {
 
     if(event.key === 'ArrowRight') {
 
-
         if(activeIndex < items.length - 1) {
         console.log('листаем вправо');
-        console.log(items.length);
         const nextImgSourse = items[activeIndex + 1].original;
         lightboxImage.src = nextImgSourse;
         lightboxImage.dataset.index = activeIndex + 1;
